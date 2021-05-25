@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "client": "cd cliente && npm start",
-    "server": "nodemon server.js",
-    "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "start": "node server.js"
+    "server": "nodemon app.js",
+    "dev": "concurrently \"npm run client\" \"npm run app\"",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
