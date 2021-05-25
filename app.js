@@ -7,7 +7,7 @@ const Post = require("./database/models/Post");
 const Categoria = require("./database/models/Categoria");
 
 //Config
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 //el metodo json es para obtener el body del request en formato json
 app.use(express.json());

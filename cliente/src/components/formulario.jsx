@@ -62,7 +62,7 @@ function Formulario(props) {
           className="form-control"
           id="userId"
           name="userId"
-          ref={register({ min: 1, max: 100 })}
+         {...register('userId', { min: 1, max: 100 })}
         />
       </div>
 
@@ -76,7 +76,7 @@ function Formulario(props) {
           id="title"
           aria-describedby="emailHelp"
           name="title"
-          ref={register({ required: true, maxLength: 20 })}
+          {...register('title', {required: true, maxLength: 20 })}
         />
       </div>
 
@@ -89,7 +89,7 @@ function Formulario(props) {
           placeholder="Leave a body post here"
           id="body"
           name="body"
-          ref={register({ required: true, minLength: 5 })}
+          {...register('body', {required: true, minLength: 5})}
           // ref={register({ pattern: /^[A-Za-z]+$/i })}
         ></textarea>
       </div>
