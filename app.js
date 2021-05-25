@@ -1,4 +1,7 @@
+var cors = require('cors');
 const express = require("express");
+const path = require('path');
+const bodyParser = require("body-parser");
 const app = express();
 const sequelize = require("./database/db");
 require("./database/Asociaciones");
@@ -7,14 +10,23 @@ const Post = require("./database/models/Post");
 const Categoria = require("./database/models/Categoria");
 
 //Config
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 
 //el metodo json es para obtener el body del request en formato json
 app.use(express.json());
 
+//Conexion
+app.use(cors())
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname, 'cliente/build')));
+
 //Rutas
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.sendFile(path.join(__dirname, 'cliente/build', 'index.html'));
 });
 
 app.get("/posts", (req, res) => {
@@ -81,6 +93,16 @@ app.delete("/posts/:id", async (req, res) => {
       console.error(error.message);
     });
 });
+
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static("cliente/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "cliente", "build", "index.html"));
+  });
+}
+
 
 //Server Start
 app.listen(PORT, async () => {
